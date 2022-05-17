@@ -15,8 +15,27 @@ function App() {
   const topics = data.topics;
 
   chartData = topics.map(topic => {
-    return { name: topic.label, weight: topic.sentimentScore }
-  })
+    return {
+      name: topic.label,
+      weight: topic.volume,
+      color: getTopicColor(topic.sentimentScore)
+    }
+  });
+
+  function getTopicColor(sentimentScore) {
+    const red = "#ff5277";
+    const green = "#6fcdcd";
+    const grey = "#666666"
+
+    let assignedColor = grey;
+    if (sentimentScore > 60) return assignedColor = green;
+    if (sentimentScore < 40) return assignedColor = red;
+
+    return assignedColor;
+  };
+
+
+
 
   useEffect(() => {
     // localStorage.setItem(LOCAL_STORAGE_SELECTED_TOPIC, JSON.stringify(selectedTopic));
@@ -31,7 +50,8 @@ function App() {
 
 
 
-  function onTopicUpdate(selectedId) {
+
+  function onTopicSelected(selectedId) {
     setSelectedTopic(() => { return topics[selectedId] });
   }
 
@@ -44,7 +64,7 @@ function App() {
       {/* <div className='content' style={{ display: 'flex' }}> */}
       <div>
 
-        <WordCloudChart className="chartContainer" onTopicUpdate={onTopicUpdate} chartData={chartData}></WordCloudChart>
+        <WordCloudChart className="chartContainer" topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
 
         <div className='infoBox-container'>
           {selectedTopic ? <InfoBox selectedTopic={selectedTopic}></InfoBox> : <InfoBoxEmptyPlaceholder></InfoBoxEmptyPlaceholder>}
