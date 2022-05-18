@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function InfoBoxEmptyPlaceholder() {
+export default function InfoBoxEmptyPlaceholder({ placeholderText }) {
     return (
         <div>
-            <h2>Click on the topic to see more info</h2>
+            <h2>{placeholderText}</h2>
         </div>
     )
 }
