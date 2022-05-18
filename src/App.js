@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import InfoBox from './InfoBox';
-import InfoBoxEmptyPlaceholder from './InfoBoxEmptyPlaceholder';
 import WordCloudChart from './WordCloudChart';
 import data from './topics.json'
 
@@ -67,7 +66,7 @@ function App() {
         <WordCloudChart className="chartContainer" topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
 
         <div className='infoBox-container'>
-          {selectedTopic ? <InfoBox selectedTopic={selectedTopic}></InfoBox> : <InfoBoxEmptyPlaceholder></InfoBoxEmptyPlaceholder>}
+          <InfoBox selectedTopic={selectedTopic}></InfoBox>
         </div>
       </div>
     </div>
