@@ -1,26 +1,63 @@
-// import logo from './logo.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import InfoBox from './InfoBox';
 import WordCloudChart from './WordCloudChart';
-import data from './topics.json'
+import staticData from './topics.json'
 import { COLOR_GREEN, COLOR_GREY, COLOR_RED } from './Config';
+import InfoBoxEmptyPlaceholder from './InfoBoxEmptyPlaceholder';
 
 // const LOCAL_STORAGE_SELECTED_TOPIC = 'selectedTopic';
 
 function App() {
-  var chartData, selectedTopic; 
-  var [selectedTopic, setSelectedTopic] = useState();
+  const [topics, setTopics] = useState()
+  const [selectedTopic, setSelectedTopic] = useState();
+  const [chartData, setChartData] = useState();
+  const [isLoading, setIsLoading] = useState();
+  const [error, setError] = useState();
 
-  const topics = data.topics;
 
-  chartData = topics.map(topic => {
-    return {
-      name: topic.label,
-      weight: topic.volume,
-      color: getTopicColor(topic.sentimentScore)
+  function fetchChartData() {
+    setIsLoading(true)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(staticData.topics);
+      }, 500);
+    })
+  }
+
+
+  const getChartData = useCallback(async () => {
+    const res = await fetchChartData();
+    setIsLoading(false);
+    try {
+      if (!res) { // should be if(!res.ok) for the real api calls
+        throw new Error('Somethning went wrong');
+      }
+      setError(false);
+
+
+      setTopics(res);
+      const transformedTopics = res.map(topic => {
+        return {
+          name: topic.label,
+          weight: topic.volume,
+          color: getTopicColor(topic.sentimentScore)
+        }
+      })
+      setChartData(transformedTopics);
+
+    } catch (error) {
+      setError('Somethning went wrong');
+      setIsLoading(false);
     }
+
   });
+
+  // Only called once - on app load
+  useEffect(() => {
+    getChartData();
+  }, [])
+
 
   function getTopicColor(sentimentScore) {
 
@@ -39,11 +76,7 @@ function App() {
   //   selectedTopic = selectedTopic ? selectedTopic : null;
   // }, [selectedTopic])
 
-  // // // Only called once - on app load
-  // useEffect(() => {
-  //   console.log('Todo: handle set chart data');
-  // //   selectedTopic = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SELECTED_TOPIC));
-  // }, [])
+
 
 
 
@@ -52,6 +85,25 @@ function App() {
     setSelectedTopic(() => { return topics[selectedId] });
   }
 
+  function showChartContent() {
+    if (chartData?.length > 0) {
+      return <WordCloudChart topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+    }
+
+    if (chartData?.length < 0) {
+      return <InfoBoxEmptyPlaceholder placeholderText={"No Data to show"} />
+    }
+
+
+    if (error) {
+      return <p>{error}</p>;
+    }
+    if (isLoading) {
+      return <p>Loading...</p>
+    }
+
+
+  }
   return (
     <div className="app">
       <header className="app-header">
@@ -60,7 +112,7 @@ function App() {
 
       <div className='app-content'>
         <div className="chartContainer">
-          <WordCloudChart topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+          {showChartContent()}
         </div>
 
         <div className='infoBox-container'>
