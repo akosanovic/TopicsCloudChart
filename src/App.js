@@ -85,7 +85,6 @@ function App() {
       return <InfoBoxEmptyPlaceholder placeholderText={"No Data to show"} />
     }
 
-
     if (error) {
       return <p>{error}</p>;
     }
