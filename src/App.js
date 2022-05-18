@@ -6,7 +6,6 @@ import staticData from './topics.json'
 import { COLOR_GREEN, COLOR_GREY, COLOR_RED } from './Config';
 import InfoBoxEmptyPlaceholder from './InfoBoxEmptyPlaceholder';
 
-// const LOCAL_STORAGE_SELECTED_TOPIC = 'selectedTopic';
 
 function App() {
   const [topics, setTopics] = useState()
@@ -67,14 +66,6 @@ function App() {
 
     return assignedColor;
   };
-
-
-
-
-  // useEffect(() => {
-  //   // localStorage.setItem(LOCAL_STORAGE_SELECTED_TOPIC, JSON.stringify(selectedTopic));
-  //   selectedTopic = selectedTopic ? selectedTopic : null;
-  // }, [selectedTopic])
 
 
 
