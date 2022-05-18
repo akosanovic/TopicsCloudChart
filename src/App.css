@@ -1,10 +1,40 @@
-.chartContainer,
-[data-highcharts-chart="1"] {
-    flex-basis: 70%;
-
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
 }
+.app {
+    overflow: hidden;
+}
+.app-header  {
+    text-align: center;
+}
+.app-content {
+    height: 100%;
+}
+
+
 .infoBox-container {
-    flex: 0 0 30%
+    margin-top: -2rem;
+    padding: 2rem;
+}
+
+@media screen and (min-width: 860px)  {
+    .app {
+        height: 100vh;
+    }
+    .app-content {
+        display: flex;
+    }
+    .chartContainer {
+        flex-basis: 70%;
+        /* margin-top: 100px; */
+    }
+
+    .infoBox-container {
+        margin-top: 0;
+        flex: 0 0 30%;
+    }
 }
 
 /* Helper Classes  */

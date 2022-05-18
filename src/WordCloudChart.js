@@ -50,6 +50,11 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
                 }
             }
         }],
+        chart: {
+            marginTop: 0,
+            marginBottom: 0,
+            "type": "wordcloud",
+        },
         title: {
             text: ''
         }

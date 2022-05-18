@@ -53,15 +53,15 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <h1> My Topics Challenge </h1>
       </header>
 
-      {/* <div className='content' style={{ display: 'flex' }}> */}
-      <div>
-
-        <WordCloudChart className="chartContainer" topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+      <div className='app-content'>
+        <div className="chartContainer">
+          <WordCloudChart topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+        </div>
 
         <div className='infoBox-container'>
           <InfoBox selectedTopic={selectedTopic}></InfoBox>
