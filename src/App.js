@@ -4,6 +4,7 @@ import './App.css';
 import InfoBox from './InfoBox';
 import WordCloudChart from './WordCloudChart';
 import data from './topics.json'
+import { COLOR_GREEN, COLOR_GREY, COLOR_RED } from './Config';
 
 // const LOCAL_STORAGE_SELECTED_TOPIC = 'selectedTopic';
 
@@ -22,13 +23,10 @@ function App() {
   });
 
   function getTopicColor(sentimentScore) {
-    const red = "#ff5277";
-    const green = "#6fcdcd";
-    const grey = "#666666"
 
-    let assignedColor = grey;
-    if (sentimentScore > 60) return assignedColor = green;
-    if (sentimentScore < 40) return assignedColor = red;
+    let assignedColor = COLOR_GREY;
+    if (sentimentScore > 60) return assignedColor = COLOR_GREEN;
+    if (sentimentScore < 40) return assignedColor = COLOR_RED;
 
     return assignedColor;
   };
@@ -36,16 +34,16 @@ function App() {
 
 
 
-  useEffect(() => {
-    // localStorage.setItem(LOCAL_STORAGE_SELECTED_TOPIC, JSON.stringify(selectedTopic));
-    selectedTopic = selectedTopic ? selectedTopic : null;
-  }, [selectedTopic])
+  // useEffect(() => {
+  //   // localStorage.setItem(LOCAL_STORAGE_SELECTED_TOPIC, JSON.stringify(selectedTopic));
+  //   selectedTopic = selectedTopic ? selectedTopic : null;
+  // }, [selectedTopic])
 
-  // // Only called once - on app load
-  useEffect(() => {
-    console.log('Todo: handle set chart data');
-  //   selectedTopic = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SELECTED_TOPIC));
-  }, [])
+  // // // Only called once - on app load
+  // useEffect(() => {
+  //   console.log('Todo: handle set chart data');
+  // //   selectedTopic = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SELECTED_TOPIC));
+  // }, [])
 
 
 

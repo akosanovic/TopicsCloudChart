@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import wordcloud from 'highcharts/modules/wordcloud'
+import { NO_OF_SIZE_VARIENTS } from './Config';
 
 export default function WordCloudChart({ chartData, topicUpdate }) {
 
@@ -16,33 +17,27 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
         return topicUpdate(selectedTopicId);
     }
 
-    let weightsArray = [];
-
+    // Limit the no of font size variants in the chart 
     Highcharts.seriesTypes.wordcloud.prototype.deriveFontSize = function (relativeWeight) {
-        // relativeWeight = relativeWeight * 10;
-        var maxFontSize = 8;
-        // Will return a fontSize between 0px and 25px.
-        let weight = Math.floor(maxFontSize * relativeWeight);
-
-        // !weightsArray.includes(weight) ? weightsArray.push(weight) : console.log('exists');
-
-        weightsArray.push(weight * 12.5)
-
-        // console.log('final weight ', weightsArray.includes(weight));
+        // Each topic should have one of 6 different text sizes
+        // with the most popular topics largest, and least popular smallest 
+        // https://gist.github.com/vsomogyi/5d6de0be7caa73dcdd602f61cede1421#file-topics-json
+        let weight = Math.round(NO_OF_SIZE_VARIENTS * relativeWeight);
+        // min font size to 8
         return weight ? weight * 10 : 8;
     };
-
-    console.log('weightsArray ', weightsArray);
 
     var options = {
         series: [{
             type: 'wordcloud',
             data,
-            name: 'Occurrences', //Todo: change the name on tooltip
+            name: 'Popularity',
             rotation: { // Disable word rotation
                 from: 0,
                 to: 0,
             },
+            minFontSize: 8,
+
             style: {
                 fontFamily: 'Verdana',
             },
@@ -54,7 +49,10 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
                     }
                 }
             }
-        }]
+        }],
+        title: {
+            text: ''
+        }
     }
 
     return (

@@ -12,7 +12,7 @@ export default function InfoBox({ selectedTopic }) {
             <p>Total Mentions: {selectedTopic.volume ? selectedTopic.volume : 0}</p>
 
             <ul>
-                    <li data-testid="positive">Positive Mentions:
+                <li data-testid="positive">Positive Mentions:
                     <span className='text-green'>
                         {selectedTopic.sentiment?.positive ? selectedTopic.sentiment.positive : 0}
                     </span>
