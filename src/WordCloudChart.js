@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import wordcloud from 'highcharts/modules/wordcloud'
@@ -6,14 +6,17 @@ import { NO_OF_SIZE_VARIENTS } from './Config';
 
 export default function WordCloudChart({ chartData, topicUpdate }) {
 
-    var selectedTopicId = null;
-    var [data, setData] = useState();
-    data = chartData;
+    const [data, setData] = useState();
+    const MIN_FONT_SIZE = 8;
+
+    useEffect(() => {
+        setData(chartData);
+    }, [chartData])
 
     wordcloud(Highcharts);
 
 
-    function handleOnTopicSelect() {
+    function handleOnTopicSelect(selectedTopicId) {
         return topicUpdate(selectedTopicId);
     }
 
@@ -24,7 +27,7 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
         // https://gist.github.com/vsomogyi/5d6de0be7caa73dcdd602f61cede1421#file-topics-json
         let weight = Math.round(NO_OF_SIZE_VARIENTS * relativeWeight);
         // min font size to 8
-        return weight ? weight * 10 : 8;
+        return weight ? weight * 10 : MIN_FONT_SIZE;
     };
 
     var options = {
@@ -36,7 +39,7 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
                 from: 0,
                 to: 0,
             },
-            minFontSize: 8,
+            minFontSize: MIN_FONT_SIZE,
 
             style: {
                 fontFamily: 'Verdana',
@@ -44,8 +47,8 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
             point: {
                 events: { 
                     click: function (event) { // Dispatch Event: show info box on topic click 
-                        selectedTopicId = event.point.index;
-                        handleOnTopicSelect();
+                        const selectedTopicId = event.point.index;
+                        handleOnTopicSelect(selectedTopicId);
                     }
                 }
             }
