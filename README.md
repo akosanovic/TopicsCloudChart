@@ -3,7 +3,7 @@
 
 ## Project Description: 
 - Visualize popular topics in a given period of time as a wordcloud 
-- Click on the topic gives further inside in the topic sentiment (total volume, and how that breaks down into positive, neutral and negative sentiment) 
+- Click on the topic gives further insight in the topic sentiment (total volume, and how that breaks down into positive, neutral and negative sentiment) 
 - https://gist.github.com/vsomogyi/5d6de0be7caa73dcdd602f61cede1421
 
 
