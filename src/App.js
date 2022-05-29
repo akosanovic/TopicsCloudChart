@@ -8,6 +8,8 @@ import InfoBoxEmptyPlaceholder from './InfoBoxEmptyPlaceholder';
 
 
 function App() {
+  console.count('app.js')
+
   const [topics, setTopics] = useState()
   const [selectedTopic, setSelectedTopic] = useState();
   const [chartData, setChartData] = useState();
@@ -16,11 +18,13 @@ function App() {
 
 
   function fetchChartData() {
-    setIsLoading(true)
+    setIsLoading(true);
+    console.count('fetchChartData')
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        reject("API request fail");
-        // resolve(staticData.topics);
+        // reject("API request fail");
+        resolve(staticData.topics);
 
         if (!staticData.topics) {
           reject('Data is not valid');
@@ -65,6 +69,8 @@ function App() {
 
   // Only called once - on app load
   useEffect(() => {
+    console.count('use effect')
+
     getChartData();
   }, [])
 
