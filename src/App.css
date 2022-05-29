@@ -12,7 +12,7 @@ body {
 .app-content {
     height: 100%;
 }
-.chartContainer { 
+.chart-container { 
     text-align: center;
 }
 
@@ -28,7 +28,7 @@ body {
     .app-content {
         display: flex;
     }
-    .chartContainer {
+    .chart-container {
         flex-basis: 70%;
         /* margin-top: 100px; */
     }
@@ -39,19 +39,6 @@ body {
     }
 }
 
-/* .imgEmptyChartPlaceholder {
-    width: 100%;
-    overflow: hidden;
-    filter: blur(5px);
-    -moz-animation:blurin 3s;
-    -webkit-animation:blurin 3s;
-    animation:blurin 3s ease infinite;
-}
-.imgEmptyChartPlaceholder img {
-    display: inline-block;
-    width: 100%;
-    height: auto;
-} */
 
 
 /* Helper Classes  */

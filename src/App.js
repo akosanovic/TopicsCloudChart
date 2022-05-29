@@ -20,7 +20,7 @@ function App() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(staticData.topics);
-      }, 500);
+      }, 500);  // simlate "slower" requeset 
     })
   }
 
@@ -51,6 +51,7 @@ function App() {
     }
 
   });
+
 
   // Only called once - on app load
   useEffect(() => {
@@ -88,12 +89,12 @@ function App() {
     if (error) {
       return <p>{error}</p>;
     }
+
     if (isLoading) {
       return <p>Loading...</p>
     }
-
-
   }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -101,7 +102,7 @@ function App() {
       </header>
 
       <div className='app-content'>
-        <div className="chartContainer">
+        <div className="chart-container">
           {showChartContent()}
         </div>
 
