@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TopicsCloudChart/static/css/main.0c8bba1b.css",
+    "main.js": "/TopicsCloudChart/static/js/main.457e9e86.js",
+    "index.html": "/TopicsCloudChart/index.html",
+    "main.0c8bba1b.css.map": "/TopicsCloudChart/static/css/main.0c8bba1b.css.map",
+    "main.457e9e86.js.map": "/TopicsCloudChart/static/js/main.457e9e86.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c8bba1b.css",
+    "static/js/main.457e9e86.js"
+  ]
+}
