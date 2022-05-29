@@ -19,21 +19,32 @@ function App() {
     setIsLoading(true)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(staticData.topics);
-      }, 500);
+        reject("API request fail");
+        // resolve(staticData.topics);
+
+        if (!staticData.topics) {
+          reject('Data is not valid');
+        }
+
+      }, 1500);  // simlate "slower" requeset 
+    }).catch(err => {
+      setError(err);
+      setIsLoading(false);
     })
+
   }
 
 
   const getChartData = useCallback(async () => {
+
     const res = await fetchChartData();
-    setIsLoading(false);
+    //    if (!res) return;
     try {
       if (!res) { // should be if(!res.ok) for the real api calls
         throw new Error('Somethning went wrong');
       }
-      setError(false);
 
+      setError(false);
 
       setTopics(res);
       const transformedTopics = res.map(topic => {
@@ -46,7 +57,7 @@ function App() {
       setChartData(transformedTopics);
 
     } catch (error) {
-      setError('Somethning went wrong');
+      setError('Nothing went wrong');
       setIsLoading(false);
     }
 
