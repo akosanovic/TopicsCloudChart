@@ -57,7 +57,7 @@ function App() {
       setChartData(transformedTopics);
 
     } catch (error) {
-      setError('Nothing went wrong');
+      setError('Something went wrong');
       setIsLoading(false);
     }
 
