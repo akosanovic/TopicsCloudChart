@@ -7,7 +7,7 @@ import { NO_OF_SIZE_VARIENTS } from './Config';
 export default function WordCloudChart({ chartData, topicUpdate }) {
 
     var selectedTopicId = null;
-    var [data, setData] = useState();
+    var [data] = useState();
     data = chartData;
 
     wordcloud(Highcharts);
@@ -22,9 +22,9 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
         // Each topic should have one of 6 different text sizes
         // with the most popular topics largest, and least popular smallest 
         // https://gist.github.com/vsomogyi/5d6de0be7caa73dcdd602f61cede1421#file-topics-json
-        let weight = Math.round(NO_OF_SIZE_VARIENTS * relativeWeight);
+        let weight = Math.ceil(NO_OF_SIZE_VARIENTS * relativeWeight);
         // min font size to 8
-        return weight ? weight * 10 : 8;
+        return weight * 10;
     };
 
     var options = {
@@ -36,7 +36,7 @@ export default function WordCloudChart({ chartData, topicUpdate }) {
                 from: 0,
                 to: 0,
             },
-            minFontSize: 8,
+            minFontSize: 10,
 
             style: {
                 fontFamily: 'Verdana',

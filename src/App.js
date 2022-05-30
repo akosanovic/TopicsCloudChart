@@ -5,6 +5,7 @@ import WordCloudChart from './WordCloudChart';
 import staticData from './topics.json'
 import { COLOR_GREEN, COLOR_GREY, COLOR_RED } from './Config';
 import InfoBoxEmptyPlaceholder from './InfoBoxEmptyPlaceholder';
+import CustomWordCloudComponent from './customWordCloud/customWordCloudComp';
 
 
 function App() {
@@ -36,11 +37,20 @@ function App() {
 
 
       setTopics(res);
+
+      let highestValue = res.map(topic => {
+        return topic.volume;
+      }).sort((a, b) => {
+        return b - a
+      })[0]
+
+
       const transformedTopics = res.map(topic => {
         return {
           name: topic.label,
           weight: topic.volume,
-          color: getTopicColor(topic.sentimentScore)
+          color: getTopicColor(topic.sentimentScore),
+          fontSize: getTopicSize(topic.volume, highestValue),
         }
       })
       setChartData(transformedTopics);
@@ -67,6 +77,10 @@ function App() {
     return assignedColor;
   };
 
+  function getTopicSize(topicValue, highestValue) {
+    return (Math.ceil(topicValue / highestValue * 6) * 10);
+  }
+
 
 
 
@@ -78,7 +92,8 @@ function App() {
 
   function showChartContent() {
     if (chartData?.length > 0) {
-      return <WordCloudChart topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+      // return <WordCloudChart topicUpdate={onTopicSelected} chartData={chartData}></WordCloudChart>
+      return <CustomWordCloudComponent topicUpdate={onTopicSelected} chartData={chartData}></CustomWordCloudComponent>
     }
 
     if (chartData?.length < 0) {
